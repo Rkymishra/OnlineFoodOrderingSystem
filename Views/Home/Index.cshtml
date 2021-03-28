@@ -1,0 +1,75 @@
+﻿@using OnlineFoodOrderingSystem.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--content-->
+<div class="banner-agile">
+
+    <div class="container">
+        <h2>WELCOME TO</h2>
+        <h3>FASHION <span>CLUB</span></h3>
+        <p>Suspendisse sed tellus id libero pretium interdum. Suspendisse potenti. Quisque consectetur elit sit amet vehicula tristique. </p>
+        <a href="@Url.Action("Contact","Home")">Read More</a>
+    </div>
+</div>
+
+<div class="top-products">
+    <div class="container">
+        <h3>Top Products</h3>
+        <div class="sap_tabs">
+            <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+                <div class="clearfix"> </div>
+                <div class="resp-tabs-container">
+                    <h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span>Men's</h2><div class="tab-1 resp-tab-content resp-tab-content-active" aria-labelledby="tab_item-0" style="display:block">
+
+                        @{
+                            List<tblItem> myitem = ItemDB.GetAllFoodRecentItem();
+                            foreach (var item in myitem)
+                            {
+                                <div class="col-md-3 top-product-grids tp1 animated wow slideInUp" data-wow-delay=".5s">
+                                    <a href="@Url.Action("ViewItem", "Home", new { id = item.ItemId })" data-toggle="modal">
+                                        <div class="product-img">
+                                            <img src="~/images/ItemImages/@item.SmallImage" class="img-responsive" alt="">
+
+                                            <div class="p-mask">
+                                                <form action="#" method="post">
+                                                    <input type="hidden" name="cmd" value="_cart">
+                                                    <input type="hidden" name="add" value="1">
+                                                    <input type="hidden" name="w3ls1_item" value="Formal shoes">
+                                                    <input type="hidden" name="amount" value="220.00">
+                                                    <a class=" btn w3ls-cart pw3ls-cart my-cart-btn" href="@Url.Action("AddToCart","ShoppingCart", new { id = item.ItemId }, "")"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                                    <h4>@item.Title</h4>
+                                    <h5>@item.Price</h5>
+                                </div>
+                            }
+                        }
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Carousel
+================================================== -->
+<!--content-->
+
+
+
+
+

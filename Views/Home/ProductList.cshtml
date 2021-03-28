@@ -1,0 +1,90 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<OnlineFoodOrderingSystem.Models.tblItem>
+@using OnlineFoodOrderingSystem.Models;
+
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <h2 style="margin-top:1em;">Product List</h2>
+    <div class="sap_tabs" style="margin-top:1em;">
+        <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+            <div class="clearfix"> </div>
+            <div class="resp-tabs-container">
+                <h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span>Men's</h2><div class="tab-1 resp-tab-content resp-tab-content-active" aria-labelledby="tab_item-0" style="display:block">
+                    @if (Model.Count() == 0)
+                    {
+                        <div>
+                            No Data were found
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-md-3 top-product-grids tp1 animated wow slideInUp" data-wow-delay=".5s">
+                                <a href="@Url.Action("ViewItem", "Home", new { id = item.ItemId })">
+                                    <div class="product-img">
+                                        <img src="~/images/ItemImages/@item.SmallImage" class="img-responsive" alt="">
+                                        <div class="p-mask">
+                                            <form action="#" method="post">
+                                                <input type="hidden" name="cmd" value="_cart">
+                                                <input type="hidden" name="add" value="1">
+                                                <input type="hidden" name="w3ls1_item" value="Formal shoes">
+                                                <input type="hidden" name="amount" value="220.00">
+                                                <button class=" btn w3ls-cart pw3ls-cart" href="@Url.Action("AddToCart","ShoppingCart", new { id = item.ItemId }, "")"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </a>
+                                <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                                <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                                <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                                <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                                <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                                <h4>@item.Title</h4>
+                                <h5>@item.Price</h5>
+                            </div>
+                        }
+                    }
+                    @Html.PagedListPager(Model, page => Url.Action("ProductList", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true })
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-info">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="divForUpdate">
+
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<script>
+    //$(document).ready(function () {
+
+    //    $('.viewitem').click(function (event) {
+    //        event.preventDefault();
+    //        $.get(this.href, function (response) {
+    //            $('.divForUpdate').html(response);
+    //        });
+    //        $('#quick-view-modal').modal({
+    //            backdrop: 'static',
+    //        }, 'show');
+    //    });
+    //});
+</script>
